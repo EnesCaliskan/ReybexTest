@@ -17,7 +17,7 @@ class SalesDocTypeControllerSpec extends Specification implements ControllerUnit
 
     void "Test the index action returns the correct model"() {
         given:
-        controller.salesDocTypeService = Mock(SalesDocTypeService) {
+        controller.salesDocTypeApiService = Mock(SalesDocTypeService) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -51,7 +51,7 @@ class SalesDocTypeControllerSpec extends Specification implements ControllerUnit
 
     void "Test the save action correctly persists"() {
         given:
-        controller.salesDocTypeService = Mock(SalesDocTypeService) {
+        controller.salesDocTypeApiService = Mock(SalesDocTypeService) {
             1 * save(_ as SalesDocType)
         }
 
@@ -72,7 +72,7 @@ class SalesDocTypeControllerSpec extends Specification implements ControllerUnit
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.salesDocTypeService = Mock(SalesDocTypeService) {
+        controller.salesDocTypeApiService = Mock(SalesDocTypeService) {
             1 * save(_ as SalesDocType) >> { SalesDocType salesDocType ->
                 throw new ValidationException("Invalid instance", salesDocType.errors)
             }
@@ -91,7 +91,7 @@ class SalesDocTypeControllerSpec extends Specification implements ControllerUnit
 
     void "Test the show action with a null id"() {
         given:
-        controller.salesDocTypeService = Mock(SalesDocTypeService) {
+        controller.salesDocTypeApiService = Mock(SalesDocTypeService) {
             1 * get(null) >> null
         }
 
@@ -104,7 +104,7 @@ class SalesDocTypeControllerSpec extends Specification implements ControllerUnit
 
     void "Test the show action with a valid id"() {
         given:
-        controller.salesDocTypeService = Mock(SalesDocTypeService) {
+        controller.salesDocTypeApiService = Mock(SalesDocTypeService) {
             1 * get(2) >> new SalesDocType()
         }
 
@@ -117,7 +117,7 @@ class SalesDocTypeControllerSpec extends Specification implements ControllerUnit
 
     void "Test the edit action with a null id"() {
         given:
-        controller.salesDocTypeService = Mock(SalesDocTypeService) {
+        controller.salesDocTypeApiService = Mock(SalesDocTypeService) {
             1 * get(null) >> null
         }
 
@@ -130,7 +130,7 @@ class SalesDocTypeControllerSpec extends Specification implements ControllerUnit
 
     void "Test the edit action with a valid id"() {
         given:
-        controller.salesDocTypeService = Mock(SalesDocTypeService) {
+        controller.salesDocTypeApiService = Mock(SalesDocTypeService) {
             1 * get(2) >> new SalesDocType()
         }
 
@@ -155,7 +155,7 @@ class SalesDocTypeControllerSpec extends Specification implements ControllerUnit
 
     void "Test the update action correctly persists"() {
         given:
-        controller.salesDocTypeService = Mock(SalesDocTypeService) {
+        controller.salesDocTypeApiService = Mock(SalesDocTypeService) {
             1 * save(_ as SalesDocType)
         }
 
@@ -176,7 +176,7 @@ class SalesDocTypeControllerSpec extends Specification implements ControllerUnit
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.salesDocTypeService = Mock(SalesDocTypeService) {
+        controller.salesDocTypeApiService = Mock(SalesDocTypeService) {
             1 * save(_ as SalesDocType) >> { SalesDocType salesDocType ->
                 throw new ValidationException("Invalid instance", salesDocType.errors)
             }
@@ -205,7 +205,7 @@ class SalesDocTypeControllerSpec extends Specification implements ControllerUnit
 
     void "Test the delete action with an instance"() {
         given:
-        controller.salesDocTypeService = Mock(SalesDocTypeService) {
+        controller.salesDocTypeApiService = Mock(SalesDocTypeService) {
             1 * delete(2)
         }
 

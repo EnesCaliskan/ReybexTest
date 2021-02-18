@@ -24,12 +24,14 @@ class CustomerApiService {
         if(params.id) {
             customer = Customer.get(params.id)
             if(!customer) {
-                response = [error: "customer not found"]
+                return [error: "customer not found"]
             }
         } else {
             customer = new Customer()
         }
+
         customer.properties = params
+
         if (!customer.save(flush: true)) {
             String msg = ""
             customer.errors.each {
@@ -43,13 +45,14 @@ class CustomerApiService {
         return response
     }
 
-    Map delete(Map params) {
+    def delete(Map params) {
         println "service delete"
         Map response
         Customer customer = Customer.get(params.id)
         if(!customer) {
             response = [error: "customer not found"]
         }
+        customer.isDelete = 1
         customer.delete(flush: true)
         response = [id: customer.id]
         return response

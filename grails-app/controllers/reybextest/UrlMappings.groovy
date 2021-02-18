@@ -10,6 +10,10 @@ class UrlMappings {
         }
 
         "/api/customer/$id?"(controller: "customer") { action = [GET: "show", POST: "save", DELETE: "delete"] }
+        "/api/material/$id?"(controller: "material") { action = [GET: "show", POST: "save", DELETE: "delete"] }
+        "/api/salesDocType/$id?"(controller: "salesDocType") { action = [GET: "show", POST: "save", DELETE: "delete"] }
+        "/api/salesHead/$id?"(controller: "salesHead") { action = [GET: "show", POST: "save", DELETE: "delete"] }
+        "/api/salesItem/$id?"(controller: "salesItem") { action = [GET: "show", POST: "save", DELETE: "delete"] }
 
         "/"(view:"/index")
         "500"(view:'/error')
