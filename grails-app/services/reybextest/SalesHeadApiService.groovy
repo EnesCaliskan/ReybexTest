@@ -1,6 +1,11 @@
 package reybextest
 
+import grails.converters.JSON
 import grails.gorm.transactions.Transactional
+import groovy.json.JsonSlurper
+import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.client.HttpClient
 
 @Transactional
 class SalesHeadApiService {
@@ -57,6 +62,38 @@ class SalesHeadApiService {
         return response
     }
 
+
+    def orders(Map params) {
+
+        // url objects --> kendi objem
+        String baseUrl = "http://prestashop.p409543.webspaceconfig.de"
+        def client = HttpClient.create(baseUrl.toURL()).toBlocking()
+
+        HttpRequest request = HttpRequest.GET("/api/orders?output_format=JSON&display=full").basicAuth("LCR5YG55WIR86X4JNGS4CYRGKHBDWIBU","")
+
+        HttpResponse<String> resp = client.exchange(request, String)
+        client.close()
+
+        String json = resp.body()
+        def object = new JsonSlurper().parseText(json)
+        //*----*
+
+        //return [name:  object.orders.getAt(0).associations.order_rows.getAt(0)]
+
+        object.orders.getAt(0).associations.order_rows.each {
+            Orders orders = new Orders()
+            orders.product_id = it.product_id
+            orders.product_name = it.product_name
+            orders.product_price = it.product_price
+            orders.unit_price_tax_incl = it.unit_price_tax_incl
+            orders.save(flush:true)
+            println orders
+        }
+
+        def response =  Orders.list()
+        return response
+
+    }
 
 
 }

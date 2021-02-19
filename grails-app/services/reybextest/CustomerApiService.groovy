@@ -12,7 +12,8 @@ class CustomerApiService {
             if(!response) {
                 response = [message: "Customer not found"]
             }
-        } else {
+        }
+        else {
             response = Customer.list([readOnly:true])
         }
         return response
@@ -57,5 +58,12 @@ class CustomerApiService {
         response = [id: customer.id]
         return response
     }
+
+    def test() {
+
+    }
+
+
+
 
 }

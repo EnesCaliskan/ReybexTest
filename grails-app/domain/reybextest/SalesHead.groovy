@@ -18,7 +18,7 @@ class SalesHead {
 
         docDate nullable: false
         salesDocType(nullable: false)
-        docNumber(unique: ['salesDocType'], nullable: false)
+        docNumber(nullable: false)
 
     }
 }

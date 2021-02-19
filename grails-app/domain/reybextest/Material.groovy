@@ -7,12 +7,20 @@ class Material {
     String sku
     String name
     String description
-    Float netPrice
+    String netPrice
     Float grossPrice
     Float vatRate = 18
     Float stock = 0
 
     static constraints = {
+        name(nullable: true)
+        description(nullable: true)
+        netPrice(nullable: true)
+        stock(nullable: true)
+        sku(nullable: true)
+        grossPrice(nullable: true)
+        vatRate(nullable: true)
+        matCode(nullable: true)
     }
 }
 

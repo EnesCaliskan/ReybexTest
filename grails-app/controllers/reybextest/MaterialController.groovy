@@ -25,6 +25,13 @@ class MaterialController {
         render response as JSON
     }
 
+    def product() {
+        def response = materialApiService.product(request.JSON)
+        render response.name
+        render response.netPrice
+    }
+
+
 
 
 
