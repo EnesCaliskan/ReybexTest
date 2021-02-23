@@ -7,6 +7,7 @@ class Products {
     String product_name
     String product_price
     String unit_price_tax_incl
+    static belongsTo = [orders: Orders]
 
     static constraints = {
         product_id(nullable: true)

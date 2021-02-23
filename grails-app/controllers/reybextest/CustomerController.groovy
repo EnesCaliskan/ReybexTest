@@ -10,7 +10,6 @@ class CustomerController {
 
     static scaffold = Customer
 
-
     def show(){
         def response = customerApiService.show(params)
         render response as JSON
