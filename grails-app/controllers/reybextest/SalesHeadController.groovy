@@ -35,6 +35,11 @@ class SalesHeadController {
         render response as JSON
     }
 
+    def uOrders() {
+        def response = salesHeadApiService.uOrders(request.JSON)
+        render response as JSON
+    }
+
 
 
 }

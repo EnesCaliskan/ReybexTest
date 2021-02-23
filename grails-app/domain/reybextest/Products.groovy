@@ -15,4 +15,6 @@ class Products {
         unit_price_tax_incl(nullable: true)
     }
 
+
+
 }

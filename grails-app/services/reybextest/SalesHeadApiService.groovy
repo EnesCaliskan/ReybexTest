@@ -62,7 +62,7 @@ class SalesHeadApiService {
         return response
     }
 
-    def orders(Map params) {
+    def products(Map params) {
 
         // url objects --> kendi objem
         String baseUrl = "http://prestashop.p409543.webspaceconfig.de"
@@ -77,17 +77,19 @@ class SalesHeadApiService {
         def object = new JsonSlurper().parseText(json)
         //*----*
 
-        //return [name:  object.orders.getAt(0).associations.order_rows.getAt(0)]
-
-        println object
-
+        Products oProducts
         object.orders.getAt(0).associations.order_rows.each {
-            Products products = new Products()
-            products.product_id = it.product_id
-            products.product_name = it.product_name
-            products.product_price = it.product_price
-            products.unit_price_tax_incl = it.unit_price_tax_incl
-            products.save(flush:true)
+            if(!(Products.findAllByProduct_id(it.product_id))) {
+                oProducts = new Products()
+                    oProducts.product_id = it.product_id
+                        oProducts.product_name = it.product_name
+                        oProducts.product_price = it.product_price
+                    oProducts.unit_price_tax_incl = it.unit_price_tax_incl
+                oProducts.save(flush:true)
+            }
+            else {
+                println "Product already exists"
+            }
         }
 
         def response =  Products.list()
@@ -95,8 +97,44 @@ class SalesHeadApiService {
 
     }
 
+    def uOrders(Map params) {
 
+        // url objects --> kendi objem
+        String baseUrl = "http://prestashop.p409543.webspaceconfig.de"
+        def client = HttpClient.create(baseUrl.toURL()).toBlocking()
+
+        HttpRequest request = HttpRequest.GET("/api/orders?output_format=JSON&display=full").basicAuth("LCR5YG55WIR86X4JNGS4CYRGKHBDWIBU","")
+
+        HttpResponse<String> resp = client.exchange(request, String)
+        client.close()
+
+        String json = resp.body()
+        def object = new JsonSlurper().parseText(json)
+        //*----*
+
+        Orders pOrders
+        object.orders.each {
+            if (!(Orders.findAllById_cart(it.id_cart))) {
+                pOrders = new Orders()
+                pOrders.id_cart = it.id_cart
+                    pOrders.id_address_delivery = it.id_address_delivery
+                        pOrders.id_customer = it.id_customer
+                    pOrders.id_currency = it.id_currency
+                pOrders.save(flush:true)
+            }
+            else {
+                println "This order already exists"
+            }
+        }
+
+        def response = Orders.list()
+        return response
+
+    }
 
 
 
 }
+
+
+
