@@ -62,7 +62,6 @@ class SalesHeadApiService {
         return response
     }
 
-
     def orders(Map params) {
 
         // url objects --> kendi objem
@@ -80,20 +79,24 @@ class SalesHeadApiService {
 
         //return [name:  object.orders.getAt(0).associations.order_rows.getAt(0)]
 
+        println object
+
         object.orders.getAt(0).associations.order_rows.each {
-            Orders orders = new Orders()
-            orders.product_id = it.product_id
-            orders.product_name = it.product_name
-            orders.product_price = it.product_price
-            orders.unit_price_tax_incl = it.unit_price_tax_incl
-            orders.save(flush:true)
-            println orders
+            Products products = new Products()
+            products.product_id = it.product_id
+            products.product_name = it.product_name
+            products.product_price = it.product_price
+            products.unit_price_tax_incl = it.unit_price_tax_incl
+            products.save(flush:true)
         }
 
-        def response =  Orders.list()
+        def response =  Products.list()
         return response
 
     }
+
+
+
 
 
 }

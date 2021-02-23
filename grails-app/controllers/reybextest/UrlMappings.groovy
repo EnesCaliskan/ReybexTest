@@ -12,6 +12,7 @@ class UrlMappings {
         "/api/customer/$id?"(controller: "customer") { action = [GET: "show", POST: "save", DELETE: "delete"] }
         "/api/material/$id?"(controller: "material") { action = [GET: "show", POST: "save", DELETE: "delete"] }
         "/api/material/prestashop"(controller: "material") { action = [GET: "product"] }
+        "/api/salesHead/products"(controller: "salesHead") { action = [GET: "products"] }
         "/api/salesHead/orders"(controller: "salesHead") { action = [GET: "orders"] }
         "/api/salesDocType/$id?"(controller: "salesDocType") { action = [GET: "show", POST: "save", DELETE: "delete"] }
         "/api/salesHead/$id?"(controller: "salesHead") { action = [GET: "show", POST: "save", DELETE: "delete"] }

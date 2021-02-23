@@ -30,8 +30,8 @@ class SalesHeadController {
         render response as JSON
     }
 
-    def orders() {
-        def response = salesHeadApiService.orders(request.JSON)
+    def products() {
+        def response = salesHeadApiService.products(request.JSON)
         render response as JSON
     }
 
