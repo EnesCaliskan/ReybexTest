@@ -2,6 +2,7 @@ package reybextest
 
 import grails.converters.JSON
 import grails.gorm.transactions.Transactional
+import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -110,6 +111,7 @@ class SalesHeadApiService {
 
         String json = resp.body()
         def object = new JsonSlurper().parseText(json)
+
         //*----*
 
         Orders pOrders
@@ -132,7 +134,31 @@ class SalesHeadApiService {
 
     }
 
+    def currency(Map params) {
 
+        def slurper = new XmlSlurper().parse("C:\\asd\\new.xml")
+
+        Currency currency
+        slurper.items.each{
+             if(!(Currency.findAllByDate(it.'Tarih'))) {
+
+                 currency = new Currency()
+                    currency.date = it.'Tarih'
+                        currency.usd = it.'TP_DK_USD_A'
+                        currency.euro = it.'TP_DK_EUR_A'
+                        currency.chf = it.'TP_DK_CHF_A'
+                    currency.gbp = it.'TP_DK_GBP_A'
+                 currency.jpy = it.'TP_DK_JPY_A'
+
+                 currency.save(flush: true)
+             }
+            else {println 'this currency already exists'}
+        }
+
+        def response = Currency.list()
+        return response
+
+    }
 
 }
 

@@ -11,6 +11,7 @@ class UrlMappings {
 
         "/api/customer/$id?"(controller: "customer") { action = [GET: "show", POST: "save", DELETE: "delete"] }
         "/api/material/$id?"(controller: "material") { action = [GET: "show", POST: "save", DELETE: "delete"] }
+        "/api/salesHead/currency"(controller: "salesHead") { action = [GET: "currency"] }
         "/api/material/prestashop"(controller: "material") { action = [GET: "product"] }
         "/api/salesHead/products"(controller: "salesHead") { action = [GET: "products"] }
         "/api/salesHead/orders"(controller: "salesHead") { action = [GET: "uOrders"] }

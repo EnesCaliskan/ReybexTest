@@ -40,6 +40,11 @@ class SalesHeadController {
         render response as JSON
     }
 
+    def currency() {
+        def response = salesHeadApiService.currency(request.JSON)
+        render response as JSON
+    }
+
 
 
 }
