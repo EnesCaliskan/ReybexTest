@@ -79,33 +79,60 @@ class MaterialApiService {
         def object = new JsonSlurper().parseText(json)
         //*----*
 
-//        println object.products.getAt(0).id
-//        println object.products.getAt(0)
-
-//        object.products.each{
-//            Material material = new Material()
-//            //println it.name
-//            material.name = it.name
-//            material.stock = it.stock_availables
-//            material.netPrice = it.price
-//            material.save(flush: true)
-//            println material
-
-        //println object
-
         Material material
         object.products.each{
-            material = new Material()
-            material.name = it.name.value.getAt(0)
-            material.netPrice = it.price
-            material.save(flush:false)
+            if(!(Material.findAllByName(it.name.value.getAt(0)))) {
+                material = new Material()
+                material.name = it.name.value.getAt(0)
+                material.netPrice = it.price
+                material.stock = it.quantity
 
-            println material.netPrice
+                material.save(flush:true)
+            }
+            else {
+                println "urun daha once eklenmis"
+            }
+
         }
 
         def response = Material.list()
         return response
 
     }
+
+    def test(Map params) {
+
+        def response
+        Material material
+        if(params.id) {
+            material = Material.get(params.id)
+            if(!material) {
+                return [error: "material not found"]
+            }
+        } else {
+            material = new Material()
+        }
+
+        material.properties = params
+
+        if (!material.save(flush: true)) {
+            String msg = ""
+            material.errors.each {
+                msg += it
+                println it
+            }
+            response = [error: msg]
+        }
+
+        def isChanged = false
+        if(material.stock != "0" || material.isActiveForMarketplace == false) {
+            isChanged = true
+        }
+
+        response = [id: material.id, rsp: isChanged]
+        return response
+
+    }
+
 
 }

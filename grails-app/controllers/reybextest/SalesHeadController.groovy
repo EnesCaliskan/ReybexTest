@@ -45,6 +45,12 @@ class SalesHeadController {
         render response as JSON
     }
 
+    def tester() {
+        def response = salesHeadApiService.tester(request.JSON)
+        render response as JSON
+    }
+
+
 
 
 }

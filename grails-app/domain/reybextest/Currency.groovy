@@ -11,6 +11,5 @@ class Currency {
     String jpy
 
     static constraints = {
-
     }
 }

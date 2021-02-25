@@ -59,10 +59,6 @@ class CustomerApiService {
         return response
     }
 
-    def test() {
-
-    }
-
 
 
 

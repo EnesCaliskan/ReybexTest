@@ -160,6 +160,67 @@ class SalesHeadApiService {
 
     }
 
+    def tester(Map params) {
+
+        String baseUrl = "https://evds2.tcmb.gov.tr/service/evds/series=TP.DK.USD.A-TP.DK.EUR.A-TP.DK.CHF.A-TP.DK.GBP.A-TP.DK.JPY.A&startDate=01-10-2017&endDate=01-11-2017&type=xml&key=EH2kbv5cab"
+        def client = HttpClient.create(baseUrl.toURL()).toBlocking()
+
+        HttpRequest request = HttpRequest.GET(baseUrl)
+
+        HttpResponse<String> resp = client.exchange(request, String)
+        client.close()
+
+        String xml = resp.body()
+        def object = new XmlSlurper().parseText(xml)
+
+       //println object.items[2].TP_DK_USD_A
+
+        Currency currency
+        object.items.each{
+            if(!(Currency.findAllByDate(it.'Tarih'))) {
+                if(!(it.'TP_DK_USD_A' == "")) {
+                    currency = new Currency()
+
+                    currency.date = it.'Tarih'
+                        currency.usd = it.'TP_DK_USD_A'
+                    currency.euro = it.'TP_DK_EUR_A'
+                        currency.chf = it.'TP_DK_CHF_A'
+                    currency.gbp = it.'TP_DK_GBP_A'
+                        currency.jpy = it.'TP_DK_JPY_A'
+
+                    currency.save(flush: true)
+                }
+                else{
+                    println "hafta sonu"
+                }
+            }
+            else {
+                println 'this currency already exists'
+            }
+        }
+
+        def euroChange = Currency.last().euro.toFloat() - Currency.first().euro.toFloat()
+            def usdChange = Currency.last().usd.toFloat() - Currency.first().usd.toFloat()
+        def chfChange = Currency.last().chf.toFloat() - Currency.first().chf.toFloat()
+            def jpyChange = Currency.last().jpy.toFloat() - Currency.first().jpy.toFloat()
+        def gbpChange  = Currency.last().gbp.toFloat() - Currency.first().gbp.toFloat()
+
+
+        println "Change rate in euro = " + euroChange
+            println "Change rate in usd = " + usdChange
+        println "Change rate in chf = " + chfChange
+            println "Change rate in jpy = " + jpyChange
+        println "Change rate in gbp = " + gbpChange
+
+
+        def response = Currency.list()
+        return response
+
+    }
+
+
+
+
 }
 
 

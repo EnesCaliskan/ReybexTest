@@ -10,7 +10,8 @@ class Material {
     String netPrice
     Float grossPrice
     Float vatRate = 18
-    Float stock = 0
+    String stock = "0"
+    Boolean isActiveForMarketplace = 0
 
     static constraints = {
         name(nullable: true)
@@ -21,6 +22,7 @@ class Material {
         grossPrice(nullable: true)
         vatRate(nullable: true)
         matCode(nullable: true)
+        isActiveForMarketplace(nullable: true)
     }
 }
 
