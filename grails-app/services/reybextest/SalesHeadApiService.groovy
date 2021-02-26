@@ -241,7 +241,11 @@ class SalesHeadApiService {
                     "manufacturer" : it.urun_marka_ad.text(),
                     "description" : it.urun_aciklama.text(),
                     "urun_ozellikler" : it.urun_ozellikler.text(),
-                    "images" : it.urun_resim1.text(),
+                    "images" : [
+                            "filename" : "",
+                            "url": it.urun_resim1.text(),
+                            "isMainPicture" : ""
+                    ],
                     "salesPrice" : it.urun_fiyat_site.text(),
                     "currency" : it.urun_doviz.text(),
                     "vatRate" : it.urun_kdv.text(),
@@ -258,7 +262,6 @@ class SalesHeadApiService {
     def online(Map params) {
 
         def xml = new XmlSlurper().parse("http://www.alisverispaketim.net/xml.php?c=shopphp&xmlc=25eeeb8ee3&catID=799")
-
         def parsedText
         def newList = []
 
@@ -272,7 +275,11 @@ class SalesHeadApiService {
                     "manufacturer" : it.urun_marka_ad.text(),
                     "description" : it.urun_aciklama.text(),
                     "urun_ozellikler" : it.urun_ozellikler.text(),
-                    "images" : it.urun_resim1.text(),
+                    "images" : [
+                            "filename" : "",
+                            "url": it.urun_resim1.text(),
+                            "isMainPicture" : ""
+                    ],
                     "salesPrice" : it.urun_fiyat_site.text(),
                     "currency" : it.urun_doviz.text(),
                     "vatRate" : it.urun_kdv.text(),
