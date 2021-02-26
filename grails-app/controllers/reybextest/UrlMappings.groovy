@@ -13,6 +13,8 @@ class UrlMappings {
         "/api/material/$id?"(controller: "material") { action = [GET: "show", POST: "save", DELETE: "delete"] }
         "/api/salesHead/currency"(controller: "salesHead") { action = [GET: "currency"] }
         "/api/salesHead/tester"(controller: "salesHead") { action = [GET: "tester"] }
+        "/api/salesHead/shop"(controller: "salesHead") { action = [GET: "shop"] }
+        "/api/salesHead/online"(controller: "salesHead") { action = [GET: "online"] }
         "/api/material/prestashop/$id?"(controller: "material") { action = [GET: "product", POST: "test"] }
         "/api/salesHead/products"(controller: "salesHead") { action = [GET: "products"] }
         "/api/salesHead/orders"(controller: "salesHead") { action = [GET: "uOrders"] }

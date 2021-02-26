@@ -66,6 +66,8 @@ class MaterialApiService {
 
     def product(Map params) {
 
+        def response
+
         // url objects --> kendi objem
         String baseUrl = "http://prestashop.p409543.webspaceconfig.de"
         def client = HttpClient.create(baseUrl.toURL()).toBlocking()
@@ -83,6 +85,9 @@ class MaterialApiService {
         object.products.each{
             if(!(Material.findAllByName(it.name.value.getAt(0)))) {
                 material = new Material()
+                material.sku = it.reference
+                material.matCode = it.cache_default_attribute
+                material.description = it.meta_description[0].value
                 material.name = it.name.value.getAt(0)
                 material.netPrice = it.price
                 material.stock = it.quantity
@@ -95,7 +100,13 @@ class MaterialApiService {
 
         }
 
-        def response = Material.list()
+        if(params.id) {
+            response = Material.get(params.id)
+        }
+        else {
+            response = Material.list()
+        }
+
         return response
 
     }

@@ -1,6 +1,7 @@
 package reybextest
 
 import grails.converters.JSON
+import grails.converters.XML
 import grails.validation.ValidationException
 import groovy.json.JsonSlurper
 import io.micronaut.http.HttpRequest
@@ -47,6 +48,16 @@ class SalesHeadController {
 
     def tester() {
         def response = salesHeadApiService.tester(request.JSON)
+        render response as JSON
+    }
+
+    def shop() {
+        def response = salesHeadApiService.shop(params)
+        render response as JSON
+    }
+
+    def online() {
+        def response = salesHeadApiService.online(params)
         render response as JSON
     }
 
